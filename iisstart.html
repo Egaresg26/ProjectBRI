@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>List of Pokémon</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0; /* Warna latar belakang */
+        }
+
+        h1 {
+            text-align: center;
+            color: #333; /* Warna teks */
+        }
+
+        #pokemonList {
+            list-style-type: none;
+            padding: 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .pokemonItem {
+            margin: 10px;
+            padding: 10px;
+            border-radius: 5px;
+            background-color: #fff; /* Warna latar belakang item */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Bayangan item */
+            text-align: center;
+            width: 150px;
+        }
+
+        .pokemonItem img {
+            max-width: 100px;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .pokemonItem:hover {
+            background-color: #f9f9f9; /* Warna latar belakang saat hover */
+        }
+    </style>
+</head>
+<body>
+    <h1>List of Pokémon</h1>
+    <ul id="pokemonList"></ul>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            fetch('https://pokeapi.co/api/v2/pokemon?limit=56')
+                .then(response => response.json())
+                .then(data => {
+                    const pokemonList = document.getElementById('pokemonList');
+                    data.results.forEach(pokemon => {
+                        const listItem = document.createElement('li');
+                        listItem.classList.add('pokemonItem'); // Tambahkan kelas untuk gaya CSS
+                        fetch(pokemon.url)
+                            .then(response => response.json())
+                            .then(pokemonData => {
+                                const pokemonName = pokemonData.name;
+                                const pokemonImage = pokemonData.sprites.front_default;
+                                const imageElement = document.createElement('img');
+                                imageElement.src = pokemonImage;
+                                const nameElement = document.createElement('p');
+                                nameElement.textContent = pokemonName;
+                                listItem.appendChild(imageElement);
+                                listItem.appendChild(nameElement);
+                            });
+                        pokemonList.appendChild(listItem);
+                    });
+                })
+                .catch(error => console.error('Error fetching Pokémon list:', error));
+        });
+    </script>
+</body>
+</html>
