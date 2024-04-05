@@ -14,7 +14,7 @@ options.add_experimental_option("detach", True)
 driver = webdriver.Edge(options=options)
 
 # Confluence Login page
-driver.get("https://confluence.bri.co.id/login.action?os_destination=%2Fpages%2Fviewpage.action%3FspaceKey%3DIAO2023%26title%3DAll%2BAplikasi%2BIAO&permissionViolation=true")
+driver.get("https://172.18.134.83:8443/BSGUAT/servlet/BrowserServlet")
 time.sleep(5)
 driver.find_element("id", "details-button").click()
 time.sleep(3)
