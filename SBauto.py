@@ -16,5 +16,5 @@ cmd_window = gw.getWindowsWithTitle('cmd')[0]
 cmd_window.activate()
 
 # Mengetikkan "1" menggunakan pyautogui
-pyautogui.typewrite('1')
+pyautogui.typewrite('2')
 pyautogui.press('enter')
