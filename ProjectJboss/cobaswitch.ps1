@@ -21,7 +21,6 @@ if ($windowProcess -ne $null) {
 
     # Beralih ke jendela menggunakan fungsi Win32 API
     [WinApi]::SwitchToThisWindow($windowHandle, $true)
-
     # Tambahkan penundaan sejenak untuk memastikan beralih jendela selesai
     Start-Sleep -Seconds 5
 
