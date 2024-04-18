@@ -45,6 +45,3 @@ if any(error_message in e.text for e in errors):
     print("[!] Login failed")
 else:
     print("[+] Login successful")
-
-
-ss
