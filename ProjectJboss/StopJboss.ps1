@@ -91,9 +91,26 @@ if ($windowProcess) {
 }
 
 #Buka Jshell.bat 
-Start-Process -FilePath .\quit.bat -Verb RunAs
+Start-Process -FilePath .\halo.txt
 Add-Type -AssemblyName System.Windows.Forms
-Start-Sleep -Seconds 3
+Start-Sleep -Seconds 5
+
+$windowName = "halo - Notepad"
+$windowProcess = Get-Process | Where-Object { $_.MainWindowTitle -eq $windowName }
+
+# Periksa apakah proses jendela ditemukan
+if ($windowProcess) {
+    $windowHandle = $windowProcess.MainWindowHandle
+    if ($windowHandle -ne [IntPtr]::Zero) {
+        [WinApi]::SwitchToThisWindow($windowHandle, $true)
+    } else {
+        Write-Host "Handle jendela kosong atau tidak valid."
+    }
+} else {
+    Write-Host "Proses jendela tidak ditemukan."
+}
+
+Start-Sleep -Seconds 10
 
 # buka DBTools
 [System.Windows.Forms.SendKeys]::SendWait("DBTools{ENTER}")
