@@ -42,4 +42,29 @@ Start-Sleep -Seconds 3
 [System.Windows.Forms.SendKeys]::SendWait("^U{ENTER}")
 Start-Sleep -Seconds 3
 
-#invoke python
+# Impor modul Selenium WebDriver
+Add-Type -Path "C:\Users\user\Documents\ProjectBRI\ProjectJboss\WebDriver.dll"
+
+# Buat objek Firefox WebDriver
+$driver = New-Object OpenQA.Selenium.Firefox.FirefoxDriver
+
+# Define the keywords
+$keywords = "START.TSM"
+
+# Navigate to the URL
+$driver.Url = "https://172.18.247.187:8443/TAFJEE/index.html"
+$driver.Manage().Window.Maximize()
+Start-Sleep -Seconds 5
+
+# Click on the "Execute servlet" link
+$driver.FindElementByLinkText("Execute servlet").Click()
+Start-Sleep -Seconds 3
+
+# Find the search box and enter the keywords
+$searchBox = $driver.FindElementByName("command")
+$searchBox.SendKeys($keywords)
+
+# Click on the submit button
+$submitButton = $driver.FindElementById("submit")
+$submitButton.Click()
+Start-Sleep -Seconds 3
